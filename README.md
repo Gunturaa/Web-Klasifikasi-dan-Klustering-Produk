@@ -1,7 +1,5 @@
 # 🛍️ Web Klasifikasi & Klustering Produk Shopee
 
-![Banner Proyek](https://raw.githubusercontent.com/Gunturaa/Web-Klasifikasi-dan-Klustering-Produk/main/screenshots/banner.png)
-
 Aplikasi web berbasis machine learning untuk analisis produk Shopee dengan fitur klasifikasi performa produk dan pengelompokan produk.
 
 [![GitHub stars](https://img.shields.io/github/stars/Gunturaa/Web-Klasifikasi-dan-Klustering-Produk?style=social)](https://github.com/Gunturaa/Web-Klasifikasi-dan-Klustering-Produk/stargazers)
