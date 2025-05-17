@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopeeAnalyzer - Klasifikasi Produk Shopee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ee4d2d;
+            --primary-light: #ff6b4a;
+            --primary-dark: #d33a1e;
+            --secondary: #f5f5f5;
+            --dark: #212121;
+            --light: #ffffff;
+        }
+        
+        body {
+            background-color: #fafafa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .navbar {
+            background: var(--light);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark) !important;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+        
+        .nav-link.active {
+            color: var(--primary) !important;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f9f9ff 0%, #f0f2ff 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(238, 77, 45, 0.1) 0%, rgba(238, 77, 45, 0) 70%);
+            z-index: 0;
+        }
+        
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .hero-title span {
+            color: var(--primary);
+        }
+        
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 32px;
+            position: relative;
+        }
+        
+        .btn-main {
+            padding: 12px 36px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(238, 77, 45, 0.4);
+        }
+        
+        .btn-main:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(238, 77, 45, 0.5);
+        }
+        
+        .btn-outline-main {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline-main:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #fff;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .feature-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(238, 77, 45, 0.15);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(238, 77, 45, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-desc {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f9f9ff 0%, #f0f2ff 100%);
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(238, 77, 45, 0.15);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: rgba(238, 77, 45, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+        
+        .cta-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-desc {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 36px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Animations */
+        .animate-up {
+            animation: fadeInUp 1s both;
+        }
+        
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 60px 0;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-desc {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-store me-2"></i>ShopeeAnalyzer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Fitur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/klasifikasi">Klasifikasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cluster">Klustering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0 animate-up">
+                    <h1 class="hero-title">Analisis Produk Shopee dengan <span>Machine Learning</span></h1>
+                    <p class="hero-desc">
+                        Platform canggih untuk mengklasifikasi dan mengelompokkan produk Shopee Anda. 
+                        Dapatkan wawasan mendalam tentang performa produk dan strategi pengembangan bisnis.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="/klasifikasi" class="btn btn-main">
+                            <i class="fas fa-rocket me-2"></i> Mulai Klasifikasi
+                        </a>
+                        <a href="/cluster" class="btn btn-outline-main">
+                            <i class="fas fa-project-diagram me-2"></i> Coba Klustering
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 animate-up animate-delay-1">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWNvbW1lcmNlfGVufDB8fDB8fHww" 
+                         alt="E-commerce Analytics" 
+                         class="img-fluid rounded-3 shadow floating" 
+                         style="animation: floating 3s ease-in-out infinite; animation-delay: 0.5s;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Fitur Unggulan Kami</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card animate-up animate-delay-1">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">Klasifikasi Produk</h3>
+                        <p class="feature-desc">
+                            Kategorikan produk Anda berdasarkan performa penjualan menggunakan algoritma machine learning terbaru.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card animate-up animate-delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="feature-title">Klustering Produk</h3>
+                        <p class="feature-desc">
+                            Kelompokkan produk Anda berdasarkan karakteristik untuk strategi pemasaran yang lebih terarah.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card animate-up animate-delay-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Analisis Mendalam</h3>
+                        <p class="feature-desc">
+                            Dapatkan laporan analisis komprehensif untuk pengambilan keputusan bisnis yang lebih baik.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Cara Kerja Platform Kami</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="step-card animate-up">
+                        <div class="step-number">1</div>
+                        <h3 class="feature-title">Masukkan Data Produk</h3>
+                        <p class="feature-desc">
+                            Isi formulir dengan detail produk Shopee Anda termasuk harga, rating, dan jumlah ulasan.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card animate-up animate-delay-1">
+                        <div class="step-number">2</div>
+                        <h3 class="feature-title">Proses Analisis</h3>
+                        <p class="feature-desc">
+                            Sistem kami akan menganalisis data menggunakan model machine learning yang telah dilatih.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card animate-up animate-delay-2">
+                        <div class="step-number">3</div>
+                        <h3 class="feature-title">Dapatkan Hasil</h3>
+                        <p class="feature-desc">
+                            Lihat klasifikasi dan pengelompokan produk Anda beserta rekomendasi strategi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="cta-title animate-up">Siap Meningkatkan Penjualan di Shopee?</h2>
+                    <p class="cta-desc animate-up animate-delay-1">
+                        Mulai analisis produk Anda sekarang dan dapatkan wawasan berharga untuk mengoptimalkan strategi bisnis e-commerce Anda.
+                    </p>
+                    <a href="/klasifikasi" class="btn cta-btn animate-up animate-delay-2">
+                        <i class="fas fa-play me-2"></i> Mulai Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="footer-title">
+                        <i class="fas fa-store me-2"></i>ShopeeAnalyzer
+                    </h3>
+                    <p class="text-muted">
+                        Platform analisis produk Shopee berbasis machine learning untuk membantu bisnis e-commerce Anda tumbuh lebih cepat.
+                    </p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h3 class="footer-title">Menu</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#features">Fitur</a></li>
+                        <li><a href="/klasifikasi">Klasifikasi</a></li>
+                        <li><a href="/cluster">Klustering</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h3 class="footer-title">Kontak</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Yogyakarta, Indonesia</li>
+                        <li><i class="fas fa-envelope me-2"></i> gunturhanabi222@gmail.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +62 8951 5441 332</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p class="text-muted">Dapatkan update terbaru tentang fitur dan perkembangan kami.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email Anda">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 - Proyek Data Mining AMIKOM. 22.11.4820.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple animation trigger on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
